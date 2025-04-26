@@ -1,0 +1,67 @@
+{
+    "banner_title": "Prestige property sales in discretion.",
+    "banner_button": "Check your property's eligibility",
+    "banner_support_title": "Need assistance",
+    "banner_support_desc": "Write to me confidentially at",
+    "form": {
+      "title": "Check your property's eligibility",
+      "desc": "Off-market marketing at Secretimmo is reserved for exceptional, unique, or luxury properties. <br>To check if your property meets our criteria, we invite you to take an eligibility test. <br>Your data is treated with strict confidentiality and is never shared without your consent.",
+      "secretimmo_title": "Congratulations, your property is considered exceptional and could be marketed off-market!",
+      "secretimmo_desc": "Please fill out the evaluation request form to know your property's current value.",
+      "nextimmo_subtitle": "Your property is not considered exceptional and could not be marketed off-market!",
+      "nextimmo_title": "The good news is that through Nextimmo, our on-market sales partner, you can sell it effectively.",
+      "nextimmo_desc": "Please fill out the evaluation request form to know your property's current value.",
+      "criteria_title": "Criteria",
+      "locality_label": "Location",
+      "locality_placeholder": "Luxembourg",
+      "type_label": "Type",
+      "surface_label": "Total area",
+      "rooms_label": "Number of rooms",
+      "exterior_title": "Exterior",
+      "garages_label": "Garages",
+      "parkings_label": "Parkings",
+      "garden_label": "Garden",
+      "terrace_label": "Terraces/Balconies",
+      "equipment_title": "Equipment",
+      "piscine_label": "Swimming pool",
+      "sports_area_label": "Sports area",
+      "smart_home_label": "Home automation",
+      "alarm_label": "Alarm",
+      "terms_label": "By checking this box, you accept our Privacy Policy.",
+      "submit_button": "Check eligibility",
+      "secretimmo_button": "Request a Secretimmo evaluation",
+      "nextimmo_button": "Request a Nextimmo evaluation",
+      "first_name_label": "First name",
+      "last_name_label": "Last name",
+      "phone_label": "Phone number",
+      "email_label": "Email"
+    },
+    "advantages_title": "Advantages of launching the sale of your prestige property off-market with Secretimmo",
+    "advantages": [
+      {
+        "title": "A smooth launch to an exclusive and targeted audience 1",
+        "content": "Present your property to a select group of partner agencies and our base of qualified active buyers, without immediate public exposure."
+      },
+      {
+        "title": "A smooth launch to an exclusive and targeted audience 2",
+        "content": "Present your property to a select group of partner agencies and our base of qualified active buyers, without immediate public exposure."
+      },
+      {
+        "title": "A smooth launch to an exclusive and targeted audience 3",
+        "content": "Present your property to a select group of partner agencies and our base of qualified active buyers, without immediate public exposure."
+      },
+      {
+        "title": "A smooth launch to an exclusive and targeted audience",
+        "content": "Present your property to a select group of partner agencies and our base of qualified active buyers, without immediate public exposure."
+      },
+      {
+        "title": "A smooth launch to an exclusive and targeted audience",
+        "content": "Present your property to a select group of partner agencies and our base of qualified active buyers, without immediate public exposure."
+      },
+      {
+        "title": "A smooth launch to an exclusive and targeted audience",
+        "content": "Present your property to a select group of partner agencies and our base of qualified active buyers, without immediate public exposure."
+      }
+    ]
+  }
+  
