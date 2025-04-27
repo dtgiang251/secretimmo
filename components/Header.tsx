@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import siteMetadata from "@/data/siteMetadata";
-import Logo from "@/data/logo.svg";
 import Link from 'next/link'
 import i18n from '@/lib/i18n';
 import { languages } from '@/i18n/settings';
@@ -44,28 +43,24 @@ const Header = () => {
           <Link href="/" aria-label={siteMetadata.headerTitle}>
             <div className="flex items-center justify-between">
               <div className="mr-3">
-                <Logo />
+                <Image src={`static/logo.svg`} alt={'address'} className="w-[186px] h-[36px] sm:w-auto sm:h-auto" width={186} height={36} />
               </div>
             </div>
           </Link>
           <div className="flex items-center space-x-4 leading-4.5">
 
             <div className="header-contact header-border-right flex items-center gap-6 pt-3.5 pb-3.5 pr-6">
-              <div className="flex font-bold items-center gap-1">
-              <Image src={`static/icons/phone.svg`} alt={'phone'} width={18} height={18} />
-                <a href={`tel:${siteMetadata.phone}`}>
-                  <span>{siteMetadata.phone}</span>
-                </a>
-              </div>
-              <div className="flex font-bold items-center gap-1">
+              <a className="flex font-bold items-center gap-1" href={`tel:${siteMetadata.phone}`}>
+                <Image src={`static/icons/phone.svg`} alt={'phone'} width={18} height={18} />
+                <span className="hidden xl:block">{siteMetadata.phone}</span>
+              </a>
+              <a className="flex font-bold items-center gap-1" href={`mailto:${siteMetadata.email}`}>
                 <Image src={`static/icons/mail.svg`} alt={'email'} width={18} height={18} />
-                <a href={`mailto:${siteMetadata.email}`}>
-                  <span>{siteMetadata.email}</span>
-                </a>
-              </div>
+                <span className="hidden xl:block">{siteMetadata.email}</span>
+              </a>
             </div>
 
-            <div className="header-support header-border-right flex flex-col items-end pt-1.5 pb-1.5 pr-6">
+            <div className="header-support text-right header-border-right hidden md:flex flex-col items-end pt-1.5 pb-1.5 pr-6 max-w-[250px] xl:max-w-full">
               <span className="text-xs">{t('header_1')}</span>
               <strong className="text-sm leading-4.5">{t('header_2')}</strong>
             </div>

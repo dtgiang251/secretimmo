@@ -10,10 +10,10 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { lng: string };
 }) {
-  const lng = params.lng;
+  //const lng = params.lng;
   
   return (
-    <div lang={lng} dir={dir(lng)}>
+    <div>
       {children}
     </div>
   );

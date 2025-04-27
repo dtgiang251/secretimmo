@@ -1,8 +1,9 @@
 {
-  "name": "tailwind-nextjs-starter-blog",
+  "name": "secretimmo-landing",
   "version": "2.3.0",
   "private": true,
   "homepage": "https://dtgiang251.github.io/secretimmo",
+  "proxy": "https://nextimmo.lu",
   "scripts": {
     "start": "next dev",
     "dev": "cross-env INIT_CWD=$PWD next dev",

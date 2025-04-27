@@ -14,8 +14,12 @@
         "criteria_title": "Critères",
         "locality_label": "Localité",
         "locality_placeholder" : "Luxembourg",
-        "type_label": "Type",
-        "select_type" : "Type of the property",
+        "type_label": "Type of property",
+        "select_type": "Select a property type",
+        "propertyTypes": {
+          "Maison": ["Maison", "Maison individuelle", "Maison de maitre", "Maison d’architecte", "Propriété", "Immeuble classé", "Corps de ferme"],
+          "Appartement": ["Appartement", "Duplex", "Triplex", "Loft", "Penthouse"]
+        },
         "surface_label": "Surface totale",
         "rooms_label": "Nombre de chambres",
         "exterior_title": "Exterieur",
@@ -35,7 +39,11 @@
         "first_name_label": "Prénom",
         "last_name_label": "Nom de famille",
         "phone_label": "Numéro de téléphone",
-        "email_label": "E - mail"
+        "email_label": "E - mail",
+        "first_name_error": "Le prénom doit comporter entre 2 et 50 caractères et contenir uniquement des lettres",
+        "last_name_error": "Le nom de famille doit comporter entre 2 et 50 caractères et contenir uniquement des lettres",
+        "phone_error": "Numéro de téléphone invalide",
+        "email_error": "Adresse e-mail invalide"
     },
     "advantages_title" : "Les avantages de lancer la vente de votre bien de prestige en off-market avec Secretimmo",
     "advantages": [
