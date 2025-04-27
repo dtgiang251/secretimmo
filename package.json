@@ -2,6 +2,7 @@
   "name": "tailwind-nextjs-starter-blog",
   "version": "2.3.0",
   "private": true,
+  "homepage": "https://dtgiang251.github.io/secretimmo",
   "scripts": {
     "start": "next dev",
     "dev": "cross-env INIT_CWD=$PWD next dev",
@@ -9,7 +10,9 @@
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@headlessui/react": "2.2.0",
@@ -23,6 +26,7 @@
     "contentlayer2": "0.5.4",
     "emailjs-com": "^3.2.0",
     "esbuild": "0.25.0",
+    "gh-pages": "^6.3.0",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
     "hast-util-from-html-isomorphic": "^2.0.0",

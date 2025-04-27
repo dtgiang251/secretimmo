@@ -1,16 +1,24 @@
-import { dir } from 'i18next'
-import { languages, fallbackLng } from '../../i18n/settings'
+import React from 'react';
+import { dir } from 'i18next';
+import { languages } from '../../i18n/settings';
 
-export default function LocaleLayout({
+// Thêm từ khóa async cho layout
+export default async function LocaleLayout({
   children,
-  params: { lng }
+  params,
 }: {
-  children: React.ReactNode
-  params: { lng: string }
+  children: React.ReactNode;
+  params: { lng: string };
 }) {
+  const lng = params.lng;
+  
   return (
     <div lang={lng} dir={dir(lng)}>
       {children}
     </div>
-  )
+  );
+}
+
+export function generateStaticParams() {
+  return languages.map((lng) => ({ lng }));
 }
