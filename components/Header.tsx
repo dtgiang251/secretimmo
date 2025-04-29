@@ -9,28 +9,11 @@ import Image from 'next/image'
 
 
 const Header = () => {
-  const { t } = useTranslations();
+  const t  = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
 
-  const changeLanguage = (lng: string) => {
-    const router = useRouter();
-    const { pathname, query } = router;
-  
-    // Tạo lại đường dẫn mới với locale mới
-    const newPathname = pathname.replace(/^\/(en|fr|de)/, '');
-  
-    // Kiểm tra ngôn ngữ và chuyển đến URL tương ứng
-    if (lng === 'fr') {
-      router.push(newPathname || '/'); // Nếu ngôn ngữ là 'fr', chỉ cần điều hướng về trang chủ hoặc path gốc
-    } else {
-      router.push(`/${lng}${newPathname}`); // Thêm locale vào URL
-    }
-  
-    // Đóng menu sau khi thay đổi ngôn ngữ
-    setLanguageMenuOpen(false);
-  };
 
 
   let headerClass =
@@ -68,20 +51,7 @@ const Header = () => {
               <strong className="text-sm leading-4.5">{t('header_2')}</strong>
             </div>
 
-            <div className="relative">
-              <button onClick={() => setLanguageMenuOpen(!languageMenuOpen)} className="languge-btn cursor-pointer w-8 h-8 rounded-4xl text-sm text-center text-white uppercase">
-                {i18n.language}
-              </button>
-              {languageMenuOpen && (
-                <div className="absolute left-0 mt-2 w-8">
-                  {languages.map((lng) => (
-                    <button key={lng} onClick={() => changeLanguage(lng)} className="languge-btn cursor-pointer w-8 h-8 rounded-4xl text-sm text-center text-white uppercase mb-1">
-                      {lng}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+          
 
           </div>
         </div>

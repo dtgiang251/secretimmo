@@ -60,8 +60,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         <NextIntlClientProvider messages={messages}>
           <Header />
           {children}
-          <Footer locale={locale} />
-         
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

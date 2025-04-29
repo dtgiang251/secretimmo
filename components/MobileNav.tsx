@@ -16,7 +16,7 @@ const MobileNav = () => {
 
   const currentLang = siteMetadata.language.split("-")[0];
 
-  const { t } = useTranslation('header');
+  const t  = useTranslation('header');
   const router = useRouter();
   const pathname = usePathname();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);

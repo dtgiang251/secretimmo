@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { Link as ScrollLink, Element } from 'react-scroll';
 
 export default function Home() {
-  const { t } = useTranslations();
+  const t  = useTranslations();
   const [advantages, setAdvantages] = useState([]);
 
   useEffect(() => {

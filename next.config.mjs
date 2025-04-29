@@ -1,10 +1,18 @@
-import createNextIntlPlugin from 'next-intl/plugin'
+import createNextIntlPlugin from 'next-intl/plugin';
 
-const withNextIntl = createNextIntlPlugin()
+const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Các cấu hình khác của bạn
-}
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '3000',
+            },
+        ],
+    },
+};
 
-export default withNextIntl(nextConfig)
+export default withNextIntl(nextConfig);
