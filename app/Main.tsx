@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import emailjs from 'emailjs-com';
 import { useTranslation } from 'react-i18next';
 import siteMetadata from "@/data/siteMetadata";
 import Image from 'next/image';
@@ -34,31 +33,33 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
    // Xử lý khi người dùng nhập vào input locality
-  const handleInputChange = async (e) => {
-    const { value } = e.target;
-    setFormData({
-      ...formData,
-      locality: value,
-    });
+   const handleInputChange = async (e) => {
+      const { value } = e.target;
+      setFormData({
+        ...formData,
+        locality: value,
+      });
 
-    if (value) {
-      setLoading(true);
-      try {
-        // Thêm CORS Anywhere vào trước URL của API
-        const response = await axios.get(`https://cors-anywhere.herokuapp.com/https://nextimmo.lu/api/v2/aggregate/cities`, {
-          params: { action: 'allCities', q: value },
-        });
-        setCities(response.data.match.cities);  // Lấy dữ liệu cities từ response
-      } catch (error) {
-        console.error('Error fetching cities:', error);
-      } finally {
-        setLoading(false);
+      if (value) {
+        setLoading(true);
+        try {
+          // Sử dụng route API nội bộ
+          const response = await axios.get(`/api/locations`, {
+            params: { q: value },
+          });
+          
+          // Giả sử API trả về cấu trúc tương tự
+          setCities(response.data.match.cities);  
+        } catch (error) {
+          console.error('Error fetching cities:', error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setCities([]);  // Clear results when input is empty
       }
-    } else {
-      setCities([]);  // Clear results when input is empty
-    }
-    
   };
+
 
   // Xử lý khi người dùng chọn thành phố từ danh sách
   const handleCitySelect = (city) => {
@@ -118,30 +119,280 @@ export default function Home() {
     // Thêm state để quản lý current step
   const [currentStep, setCurrentStep] = useState(1);
   
-  // Hàm xử lý sự kiện click nút next-step
-  const handleNextStep = (e) => {
-    // Ngăn chặn hành vi mặc định của form
+  interface ZoneConditions {
+    codes: number[];
+    apartment: {
+      minSurface: number;
+      minTerrace: number;
+      minBedrooms: number;
+    };
+    house: {
+      minSurface: number;
+      minGarden: number;
+    };
+  }
+  
+
+  const zoneConditions: { [key: string]: ZoneConditions } = {
+    zone1: {
+      codes: [317, 333, 332, 330, 322, 327, 320],
+      apartment: {
+        minSurface: 95,  // with 5% tolerance
+        minTerrace: 15,
+        minBedrooms: 3
+      },
+      house: {
+        minSurface: 142.5,  // with tolerance
+        minGarden: 100
+      }
+    },
+    zone2: {
+      codes: [360, 359, 136],
+      apartment: {
+        minSurface: 142.5,
+        minTerrace: 25,
+        minBedrooms: 3
+      },
+      house: {
+        minSurface: 190,
+        minGarden: 300
+      }
+    },
+    zone3: {
+      codes: [342, 347, 310, 356, 138, 200],
+      apartment: {
+        minSurface: 142.5,
+        minTerrace: 25,
+        minBedrooms: 3
+      },
+      house: {
+        minSurface: 237.5,
+        minGarden: 500
+      }
+    },
+    zone4: {
+      codes: [],  // Mặc định cho các mã khác
+      apartment: {
+        minSurface: 332.5,
+        minTerrace: 50,
+        minBedrooms: 3
+      },
+      house: {
+        minSurface: 332.5,
+        minGarden: 1000
+      }
+    }
+  };
+
+  function determinePropertyType(
+    propertyType: string, 
+    propertyTypesMap: any
+  ): 'house' | 'apartment' {
+    console.log('Input propertyType:', propertyType);
+    console.log('Input propertyTypesMap:', propertyTypesMap);
+  
+    // Nếu propertyTypesMap không hợp lệ, trả về mặc định
+    if (!propertyTypesMap || typeof propertyTypesMap !== 'object') {
+      console.warn('Invalid propertyTypesMap');
+      return 'apartment';
+    }
+  
+    // Chuyển đổi propertyType về dạng không dấu và viết thường để so sánh
+    const normalizedPropertyType = propertyType
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+  
+    // Danh sách các từ khóa cho house
+    const houseKeys = ['maison', 'house', 'haus'];
+    
+    // Nếu propertyTypesMap là mảng, chuyển thành đối tượng
+    const processedPropertyTypesMap = Array.isArray(propertyTypesMap) 
+      ? propertyTypesMap[0] || {} 
+      : propertyTypesMap;
+  
+    // Duyệt qua các key (House/Apartment)
+    for (const [type, typeList] of Object.entries(processedPropertyTypesMap)) {
+      // Kiểm tra xem typeList có phải là mảng không
+      if (!Array.isArray(typeList)) {
+        console.warn(`Invalid typeList for type: ${type}`, typeList);
+        continue;
+      }
+  
+      // Chuyển đổi key về dạng không dấu và viết thường
+      const normalizedType = type
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+  
+      // Kiểm tra xem propertyType có nằm trong danh sách của key không
+      const matchedTypeList = typeList.map(t => 
+        String(t)
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+      );
+  
+      console.log('Checking type:', type);
+      console.log('Normalized Type:', normalizedType);
+      console.log('Matched Type List:', matchedTypeList);
+      console.log('Normalized Property Type:', normalizedPropertyType);
+  
+      // Nếu propertyType khớp với key hoặc nằm trong danh sách
+      if (
+        normalizedPropertyType === normalizedType || 
+        matchedTypeList.includes(normalizedPropertyType)
+      ) {
+        // Trả về house nếu key hoặc normalizedType nằm trong danh sách house keys
+        return houseKeys.includes(normalizedType) 
+          ? 'house' 
+          : 'apartment';
+      }
+    }
+  
+    // Mặc định trả về apartment nếu không xác định được
+    return 'apartment';
+  }
+  
+  
+    
+  
+  function checkSecretImmoEligibility(
+    cityCode: number, 
+    propertyType: 'apartment' | 'house', 
+    formData: {
+      surfaceArea: string;
+      terrace?: string;
+      bedrooms?: string;
+      garden?: string;
+    }
+  ): boolean {
+    // Chuyển đổi dữ liệu sang số
+    const surfaceArea = parseFloat(formData.surfaceArea);
+    const terrace = parseFloat(formData.terrace || '0');
+    const bedrooms = parseInt(formData.bedrooms || '0');
+    const garden = parseFloat(formData.garden || '0');
+  
+    // Tìm zone phù hợp
+    let matchedZone: ZoneConditions | undefined;
+    
+    for (const [zoneName, zoneData] of Object.entries(zoneConditions)) {
+      if (zoneData.codes.includes(cityCode)) {
+        matchedZone = zoneData;
+        break;
+      }
+    }
+  
+    // Nếu không tìm thấy zone, sử dụng zone4 (other regions)
+    if (!matchedZone) {
+      matchedZone = zoneConditions.zone4;
+    }
+
+    // Object để lưu trạng thái điều kiện
+    const conditionStatus = {
+      cityCode: cityCode !== 0,
+      surfaceArea: false,
+      terrace: propertyType === 'house',
+      bedrooms: propertyType === 'house',
+      garden: propertyType === 'apartment'
+    };
+  
+    // Log thông tin chi tiết để kiểm tra
+    console.log('Checking Secret Immo Eligibility:', {
+      cityCode,
+      propertyType,
+      formData,
+      matchedZone
+    });
+
+    console.log(`Zone: ${matchedZone.codes}`);
+  
+    // Kiểm tra điều kiện cho từng loại bất động sản
+    if (propertyType === 'apartment') {
+      // Kiểm tra diện tích
+      conditionStatus.surfaceArea = surfaceArea >= matchedZone.apartment.minSurface;
+      console.log(`Surface Area: ${surfaceArea} >= ${matchedZone.apartment.minSurface} is ${conditionStatus.surfaceArea}`);
+
+      // Kiểm tra sân hiên
+      conditionStatus.terrace = terrace >= matchedZone.apartment.minTerrace;
+      console.log(`Terrace: ${terrace} >= ${matchedZone.apartment.minTerrace} is ${conditionStatus.terrace}`);
+
+      // Kiểm tra số phòng ngủ
+      conditionStatus.bedrooms = bedrooms >= matchedZone.apartment.minBedrooms;
+      console.log(`Bedrooms: ${bedrooms} >= ${matchedZone.apartment.minBedrooms} is ${conditionStatus.bedrooms}`);
+
+      // Log trạng thái chi tiết
+      console.log('Apartment Condition Status:', conditionStatus);
+
+      // Kiểm tra tất cả điều kiện
+      return Object.values(conditionStatus).every(condition => condition === true);
+
+    } else if (propertyType === 'house') {
+      // Kiểm tra diện tích
+      conditionStatus.surfaceArea = surfaceArea >= matchedZone.house.minSurface;
+      console.log(`Surface Area: ${surfaceArea} >= ${matchedZone.house.minSurface} is ${conditionStatus.surfaceArea}`);
+
+      // Kiểm tra sân vườn
+      conditionStatus.garden = garden >= matchedZone.house.minGarden;
+      console.log(`Garden: ${garden} >= ${matchedZone.house.minGarden} is ${conditionStatus.garden}`);
+
+      // Log trạng thái chi tiết
+      console.log('House Condition Status:', conditionStatus);
+
+      // Kiểm tra tất cả điều kiện
+      return Object.values(conditionStatus).every(condition => condition === true);
+    }
+  
+    return false;
+  }
+
+  
+
+  const handleNextStep = async (e) => {
     e.preventDefault();
     
     // Kiểm tra property type
     if (!selectedType) {
-      // Hiển thị thông báo lỗi cho property type
       const tempElement = document.createElement('div');
       tempElement.setCustomValidity(t('form.type_error'));
       tempElement.reportValidity();
       return;
     }
   
-    // Lấy form element
     const form = e.target.closest('form');
     
-    // Chọn các trường required ở step 1
-    const step1Fields = form.querySelectorAll('.step1 [required]');
+    // Chọn các trường required và non-required ở step 1
+    const step1RequiredFields = form.querySelectorAll('.step1 [required]');
+    const step1NonRequiredFields = form.querySelectorAll('.step1 input:not([required])');
     
-    // Kiểm tra tính hợp lệ của các trường step 1
-    const areStep1FieldsValid = Array.from(step1Fields).every(field => {
-      // Đặt lại custom validity
+    // Kiểm tra tính hợp lệ của các trường required
+    const areStep1RequiredFieldsValid = Array.from(step1RequiredFields).every(field => {
       field.setCustomValidity('');
+      return field.validity.valid;
+    });
+  
+    // Kiểm tra tính hợp lệ của các trường non-required
+    const areStep1NonRequiredFieldsValid = Array.from(step1NonRequiredFields).every(field => {
+      // Reset custom validity
+      field.setCustomValidity('');
+  
+      // Nếu là input number và có giá trị
+      if (field.type === 'number' && field.value.trim() !== '') {
+        const value = Number(field.value);
+        
+        // Kiểm tra min
+        if (field.min && value < Number(field.min)) {
+          field.setCustomValidity(t('form.min_error', { min: field.min }));
+          return false;
+        }
+        
+        // Kiểm tra max
+        if (field.max && value > Number(field.max)) {
+          field.setCustomValidity(t('form.max_error', { max: field.max }));
+          return false;
+        }
+      }
+  
       return field.validity.valid;
     });
   
@@ -155,36 +406,70 @@ export default function Home() {
       termsCheckbox.setCustomValidity('');
     }
   
-    // Nếu tất cả đều hợp lệ
-    if (areStep1FieldsValid) {
-      // Nếu surface area > 500, hiển thị section secretimmo
-      if (parseFloat(formData.surfaceArea) > 500) {
-        document.querySelectorAll('.secretimmo').forEach(el => {
-          el.style.display = 'block';
-        });
-        document.querySelectorAll('.nextimmo').forEach(el => {
-          el.style.display = 'none';
-        });
-      } else {
-        // Ngược lại, hiển thị section nextimmo
-        document.querySelectorAll('.secretimmo').forEach(el => {
-          el.style.display = 'none';
-        });
-        document.querySelectorAll('.nextimmo').forEach(el => {
-          el.style.display = 'block';
-        });
-      }
+    // Kiểm tra tất cả các trường
+    const areAllFieldsValid = areStep1RequiredFieldsValid && areStep1NonRequiredFieldsValid;
   
-      // Chuyển sang step 2
-      setCurrentStep(2);
+    if (areAllFieldsValid) {
+      try {
+        const propertyTypes = t('form.propertyTypes', { returnObjects: true });
+        const propertyTypeForCheck = determinePropertyType(selectedType, propertyTypes);
+  
+        // Fetch city data to get city code
+        const cityResponse = await axios.get(`/api/locations`, {
+          params: { q: formData.locality },
+        });
+        
+        // Lấy city code từ response
+        const cityCode = cityResponse.data.match.cities[0]?.id;
+  
+        // Kiểm tra điều kiện SecretImmo
+        const isSecretImmo = checkSecretImmoEligibility(
+          cityCode, 
+          propertyTypeForCheck,
+          {
+            surfaceArea: formData.surfaceArea,
+            terrace: formData.terrace,
+            bedrooms: formData.rooms.toString(),
+            garden: formData.garden
+          }
+        );
+  
+        // Hiển thị section phù hợp
+        if (isSecretImmo) {
+          document.querySelectorAll('.secretimmo').forEach(el => {
+            el.style.display = 'block';
+          });
+          document.querySelectorAll('.nextimmo').forEach(el => {
+            el.style.display = 'none';
+          });
+        } else {
+          document.querySelectorAll('.secretimmo').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelectorAll('.nextimmo').forEach(el => {
+            el.style.display = 'block';
+          });
+        }
+  
+        // Chuyển sang step 2
+        setCurrentStep(2);
+      } catch (error) {
+        console.error('Error fetching city data:', error);
+        alert(t('form.city_fetch_error'));
+      }
     } else {
       // Tìm và hiển thị validation cho trường đầu tiên không hợp lệ
-      const firstInvalidField = Array.from(step1Fields).find(field => !field.validity.valid);
-      if (firstInvalidField) {
-        firstInvalidField.reportValidity();
+      const firstInvalidRequiredField = Array.from(step1RequiredFields).find(field => !field.validity.valid);
+      const firstInvalidNonRequiredField = Array.from(step1NonRequiredFields).find(field => !field.validity.valid);
+      
+      if (firstInvalidRequiredField) {
+        firstInvalidRequiredField.reportValidity();
+      } else if (firstInvalidNonRequiredField) {
+        firstInvalidNonRequiredField.reportValidity();
       }
     }
   };
+  
   
   // Thêm state để quản lý thông tin step 2
   const [step2Data, setStep2Data] = useState({
@@ -240,10 +525,10 @@ export default function Home() {
   };
   
   // Hàm submit form cuối cùng
-  const handleFinalSubmit = (e) => {
+  const handleFinalSubmit = async (e) => {
     e.preventDefault();
   
-    // Validation chi tiết cho từng trường
+    // Validation chi tiết cho từng trường (giữ nguyên như cũ)
     const validations = {
       first_name: /^[A-Za-zÀ-ỹ\s]{2,50}$/,
       last_name: /^[A-Za-zÀ-ỹ\s]{2,50}$/,
@@ -260,7 +545,6 @@ export default function Home() {
         isValid = false;
         errors[field] = `Invalid ${field}`;
         
-        // Hiển thị validation message
         const fieldElement = document.querySelector(`[name="${field}"]`);
         if (fieldElement) {
           fieldElement.setCustomValidity(t(`form.${field}_error`));
@@ -273,23 +557,34 @@ export default function Home() {
       return;
     }
   
-    // Tiếp tục xử lý submit
+    // Kết hợp dữ liệu từ cả 2 form
     const finalFormData = {
       ...formData,
-      ...step2Data
+      ...step2Data,
+      emailType: document.querySelector('.secretimmo:visible') ? 'secretimmo' : 'nextimmo'
     };
   
-    emailjs.send('your_service_id', 'your_template_id', finalFormData, 'your_user_id')
-      .then((response) => {
-        console.log('Email sent successfully', response);
-        alert('Email sent successfully!');
-        resetForm();
-      })
-      .catch((error) => {
-        console.log('Error sending email', error);
-        alert('Failed to send email. Please try again.');
+    try {
+      const response = await fetch('/api/send-property-request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(finalFormData),
       });
+  
+      if (response.ok) {
+        alert(t('form.submit_success'));
+        resetForm();
+      } else {
+        alert(t('form.submit_error'));
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert(t('form.submit_error'));
+    }
   };
+  
   
   // Hàm reset form
   const resetForm = () => {
@@ -402,14 +697,7 @@ export default function Home() {
           >
             {selectedType || t('form.select_type')}
             <span className="ml-2">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M5.29289 7.29265C5.68342 6.90212 6.31658 6.90212 6.7071 7.29265L9.99999 10.5855L13.2929 7.29265C13.6834 6.90212 14.3166 6.90212 14.7071 7.29265C15.0976 7.68317 15.0976 8.31634 14.7071 8.70686L10.7071 12.7069C10.3166 13.0974 9.68341 13.0974 9.29289 12.7069L5.29289 8.70686C4.90237 8.31634 4.90237 7.68317 5.29289 7.29265Z"
-                  fill="black"
-                />
-              </svg>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </span>
           </button>
 

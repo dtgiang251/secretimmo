@@ -43,7 +43,14 @@
         "first_name_error": "Le prénom doit comporter entre 2 et 50 caractères et contenir uniquement des lettres",
         "last_name_error": "Le nom de famille doit comporter entre 2 et 50 caractères et contenir uniquement des lettres",
         "phone_error": "Numéro de téléphone invalide",
-        "email_error": "Adresse e-mail invalide"
+        "email_error": "Adresse e-mail invalide",
+        "submit_success": "Votre demande a été envoyée avec succès.",
+        "submit_error": "Une erreur est survenue lors de l’envoi du formulaire. Veuillez réessayer.",
+        "terms_error": "Veuillez accepter les conditions.",
+        "min_error": "La valeur saisie est trop petite.",
+        "max_error": "La valeur saisie est trop grande.",
+        "type_error": "Le format de la valeur est invalide."
+
     },
     "advantages_title" : "Les avantages de lancer la vente de votre bien de prestige en off-market avec Secretimmo",
     "advantages": [

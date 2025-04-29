@@ -6,7 +6,7 @@ import ClientPage from './ClientPage'
 
 export { generateStaticParams } from '../../generateParams'
 
-export default function Page({ params }: { params: { lng: string } }) {
+export default async function Page({ params }) {
   const sortedPosts = sortPosts(allBlogs)
   const posts = allCoreContent(sortedPosts)
   return <Main posts={posts} params={params} />

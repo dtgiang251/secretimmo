@@ -2,16 +2,14 @@ import React from 'react';
 import { dir } from 'i18next';
 import { languages } from '../../i18n/settings';
 
-// Thêm từ khóa async cho layout
-export default async function LocaleLayout({
-  children,
-  params,
-}: {
+type LocaleLayoutProps = {
   children: React.ReactNode;
-  params: { lng: string };
-}) {
-  //const lng = params.lng;
-  
+  params: {
+    lng: string;
+  };
+};
+
+export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
   return (
     <div>
       {children}

@@ -1,67 +1,92 @@
 {
-    "banner_title": "Prestige-Immobilienverkauf in Diskretion.",
-    "banner_button": "Überprüfen Sie die Berechtigung Ihrer Immobilie",
-    "banner_support_title": "Benötigen Sie Unterstützung",
-    "banner_support_desc": "Schreiben Sie mir vertraulich an",
-    "form": {
-      "title": "Überprüfen Sie die Berechtigung Ihrer Immobilie",
-      "desc": "Das Off-Market-Marketing bei Secretimmo ist für außergewöhnliche, einzigartige oder Luxusimmobilien reserviert. <br>Um zu überprüfen, ob Ihre Immobilie unseren Kriterien entspricht, laden wir Sie ein, einen Berechtigungstest durchzuführen. <br>Ihre Daten werden streng vertraulich behandelt und niemals ohne Ihre Zustimmung weitergegeben.",
-      "secretimmo_title": "Herzlichen Glückwunsch, Ihre Immobilie wird als außergewöhnlich angesehen und könnte Off-Market vermarktet werden!",
-      "secretimmo_desc": "Bitte füllen Sie das Bewertungsanforderungsformular aus, um den aktuellen Wert Ihrer Immobilie zu erfahren.",
-      "nextimmo_subtitle": "Ihre Immobilie wird nicht als außergewöhnlich angesehen und könnte nicht Off-Market vermarktet werden!",
-      "nextimmo_title": "Die gute Nachricht ist, dass Sie es über Nextimmo, unseren On-Market-Verkaufspartner, effektiv verkaufen können.",
-      "nextimmo_desc": "Bitte füllen Sie das Bewertungsanforderungsformular aus, um den aktuellen Wert Ihrer Immobilie zu erfahren.",
-      "criteria_title": "Kriterien",
-      "locality_label": "Standort",
-      "locality_placeholder": "Luxemburg",
-      "type_label": "Typ",
-      "surface_label": "Gesamtfläche",
-      "rooms_label": "Anzahl der Zimmer",
-      "exterior_title": "Außenbereich",
-      "garages_label": "Garagen",
-      "parkings_label": "Parkplätze",
-      "garden_label": "Garten",
-      "terrace_label": "Terrassen/Balkone",
-      "equipment_title": "Ausstattung",
-      "piscine_label": "Schwimmbad",
-      "sports_area_label": "Sportbereich",
-      "smart_home_label": "Hausautomation",
-      "alarm_label": "Alarm",
-      "terms_label": "Indem Sie dieses Kästchen aktivieren, akzeptieren Sie unsere Datenschutzrichtlinie.",
-      "submit_button": "Berechtigung überprüfen",
-      "secretimmo_button": "Fordern Sie eine Secretimmo-Bewertung an",
-      "nextimmo_button": "Fordern Sie eine Nextimmo-Bewertung an",
-      "first_name_label": "Vorname",
-      "last_name_label": "Nachname",
-      "phone_label": "Telefonnummer",
-      "email_label": "E-Mail"
+  "banner_title": "Diskreter Verkauf von Luxusimmobilien.",
+  "banner_button": "Prüfen Sie die Eignung Ihrer Immobilie",
+  "banner_support_title": "Benötigen Sie Unterstützung",
+  "banner_support_desc": "Schreiben Sie mir vertraulich an",
+  "form": {
+    "title": "Überprüfen Sie die Eignung Ihrer Immobilie",
+    "desc": "Die Off-Market-Vermarktung bei Secretimmo ist hochwertigen, außergewöhnlichen oder luxuriösen Immobilien vorbehalten. <br>Prüfen Sie, ob Ihre Immobilie unseren Kriterien entspricht, indem Sie einen Eignungstest durchführen. <br>Ihre Daten werden streng vertraulich behandelt und niemals ohne Ihre Zustimmung weitergegeben.",
+    "secretimmo_title": "Herzlichen Glückwunsch, Ihre Immobilie gilt als Premium-Objekt und könnte Off-Market vermarktet werden!",
+    "secretimmo_desc": "Bitte füllen Sie das Bewertungsformular aus, um den aktuellen Wert Ihrer Immobilie zu erfahren.",
+    "nextimmo_subtitle": "Ihre Immobilie gilt nicht als Premium-Objekt und kann nicht Off-Market vermarktet werden!",
+    "nextimmo_title": "Die gute Nachricht ist, dass Sie über Nextimmo, unseren On-Market-Partner, effektiv verkaufen können.",
+    "nextimmo_desc": "Bitte füllen Sie das Bewertungsformular aus, um den aktuellen Wert Ihrer Immobilie zu erfahren.",
+    "criteria_title": "Kriterien",
+    "locality_label": "Standort",
+    "locality_placeholder": "Luxemburg",
+    "type_label": "Immobilientyp",
+    "select_type": "Wählen Sie einen Immobilientyp",
+    "propertyTypes": {
+      "Haus": [
+        "Haus",
+        "Einfamilienhaus",
+        "Herrenhaus",
+        "Architektenhaus",
+        "Anwesen",
+        "denkmalgeschütztes Gebäude",
+        "Bauernhaus"
+      ],
+      "Wohnung": [
+        "Wohnung",
+        "Duplex",
+        "Triplex",
+        "Loft",
+        "Penthouse"
+      ]
     },
-    "advantages_title": "Vorteile des Verkaufs Ihrer Prestige-Immobilie Off-Market mit Secretimmo",
-    "advantages": [
-      {
-        "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum 1",
-        "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserer Basis qualifizierter aktiver Käufer, ohne sofortige öffentliche Exposition."
-      },
-      {
-        "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum 2",
-        "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserer Basis qualifizierter aktiver Käufer, ohne sofortige öffentliche Exposition."
-      },
-      {
-        "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum 3",
-        "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserer Basis qualifizierter aktiver Käufer, ohne sofortige öffentliche Exposition."
-      },
-      {
-        "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum",
-        "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserer Basis qualifizierter aktiver Käufer, ohne sofortige öffentliche Exposition."
-      },
-      {
-        "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum",
-        "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserer Basis qualifizierter aktiver Käufer, ohne sofortige öffentliche Exposition."
-      },
-      {
-        "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum",
-        "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserer Basis qualifizierter aktiver Käufer, ohne sofortige öffentliche Exposition."
-      }
-    ]
-  }
-  
+    "surface_label": "Gesamtfläche",
+    "rooms_label": "Anzahl der Zimmer",
+    "exterior_title": "Außenbereich",
+    "garages_label": "Garagen",
+    "parkings_label": "Parkplätze",
+    "garden_label": "Garten",
+    "terrace_label": "Terrassen/Balkone",
+    "equipment_title": "Ausstattung",
+    "piscine_label": "Schwimmbad",
+    "sports_area_label": "Sportbereich",
+    "smart_home_label": "Smart Home",
+    "alarm_label": "Alarmanlage",
+    "terms_label": "Durch Ankreuzen dieses Feldes stimmen Sie unserer Datenschutzrichtlinie zu.",
+    "submit_button": "Eignung prüfen",
+    "secretimmo_button": "Secretimmo-Bewertung anfordern",
+    "nextimmo_button": "Nextimmo-Bewertung anfordern",
+    "first_name_label": "Vorname",
+    "last_name_label": "Nachname",
+    "phone_label": "Telefonnummer",
+    "email_label": "E-Mail",
+    "first_name_error": "Der Vorname muss zwischen 2 und 50 Zeichen lang sein und darf nur Buchstaben enthalten",
+    "last_name_error": "Der Nachname muss zwischen 2 und 50 Zeichen lang sein und darf nur Buchstaben enthalten",
+    "phone_error": "Ungültige Telefonnummer",
+    "email_error": "Ungültige E-Mail-Adresse",
+    "submit_success": "Ihre Anfrage wurde erfolgreich gesendet.",
+    "submit_error": "Beim Senden des Formulars ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "terms_error": "Bitte akzeptieren Sie die Bedingungen."
+  },
+  "advantages_title": "Die Vorteile, Ihren Luxusimmobilienverkauf Off-Market mit Secretimmo zu starten",
+  "advantages": [
+    {
+      "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum 1",
+      "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserem Pool qualifizierter, aktiver Käufer, ohne sofortige öffentliche Präsenz."
+    },
+    {
+      "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum 2",
+      "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserem Pool qualifizierter, aktiver Käufer, ohne sofortige öffentliche Präsenz."
+    },
+    {
+      "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum 3",
+      "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserem Pool qualifizierter, aktiver Käufer, ohne sofortige öffentliche Präsenz."
+    },
+    {
+      "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum",
+      "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserem Pool qualifizierter, aktiver Käufer, ohne sofortige öffentliche Präsenz."
+    },
+    {
+      "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum",
+      "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserem Pool qualifizierter, aktiver Käufer, ohne sofortige öffentliche Präsenz."
+    },
+    {
+      "title": "Ein sanfter Start bei einem exklusiven und gezielten Publikum",
+      "content": "Präsentieren Sie Ihre Immobilie einer ausgewählten Gruppe von Partneragenturen und unserem Pool qualifizierter, aktiver Käufer, ohne sofortige öffentliche Präsenz."
+    }
+  ]
+}
