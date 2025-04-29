@@ -11,6 +11,8 @@ import i18n from '@/lib/i18n'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { ThemeProviders } from './theme-providers'
+import { NextIntlClientProvider } from 'next-intl';
+import { useLocale } from 'next-intl';
 
 
 
@@ -27,8 +29,9 @@ const poppins = Poppins({
   display: 'swap',
 });
 
-export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
+export default function RootLayoutClient({ children, messages }: { children: React.ReactNode, messages: any }) {
   return (
+    <NextIntlClientProvider locale={locale} messages={messages}>
     <html
       suppressHydrationWarning
       className={`${inter.variable} ${poppins.variable} scroll-smooth`}
@@ -44,5 +47,6 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         </I18nextProvider>
       </body>
     </html>
+    </NextIntlClientProvider>
   )
 }

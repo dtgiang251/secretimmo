@@ -1,42 +1,69 @@
-import 'css/tailwind.css'
-import 'pliny/search/algolia.css'
-import 'remark-github-blockquote-alert/alert.css'
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
+
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import { Inter } from 'next/font/google';
 
 
-import { Metadata } from 'next'
-import siteMetadata from '@/data/siteMetadata'
-import RootLayoutClient from './layout.client'
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
 
-export const metadata: Metadata = {
-  title: {
-    default: siteMetadata.title,
-    template: `%s | ${siteMetadata.title}`,
-  },
-  description: siteMetadata.description,
-  openGraph: {
-    title: siteMetadata.title,
-    description: siteMetadata.description,
-    url: siteMetadata.siteUrl,
-    siteName: siteMetadata.title,
-    images: [siteMetadata.socialBanner],
-    locale: 'en_US',
-    type: 'website',
-  },
-  alternates: {
-    canonical: siteMetadata.siteUrl,
-    languages: {
-      fr: '/',
-      en: '/en',
-      de: '/de',
-    },
-  },
-  twitter: {
-    title: siteMetadata.title,
-    card: 'summary_large_image',
-    images: [siteMetadata.socialBanner],
-  },
+
+
+const locales = ['en', 'de', 'fr'] as const;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <RootLayoutClient>{children}</RootLayoutClient>;
+export const viewport = {
+  viewport: {
+    initialScale: 1,
+    width: 'device-width',
+  },
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
+
+const isDevelopment = process.env.NEXT_ENV === 'dev';
+const isProd = process.env.NEXT_ENV === 'prod';
+
+
+export const metadata = {
+  ...(isDevelopment && { robots: 'noindex, nofollow' }),
+  ...(isProd && { robots: 'index, follow' }),
+};
+
+interface LocaleLayoutProps {
+  children: React.ReactNode;
+  params: { locale: typeof locales[number] };
+}
+
+
+
+
+
+export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const messages = await getMessages({ locale });
+
+  return (
+    <html lang={locale} className={`${inter.variable} font-sans`}>
+      <body>
+        <NextIntlClientProvider messages={messages}>
+          <Header />
+          {children}
+          <Footer locale={locale} />
+         
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
 }

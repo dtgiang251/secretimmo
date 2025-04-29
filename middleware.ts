@@ -1,9 +1,22 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { fallbackLng, languages } from './i18n/settings'
+import createMiddleware from 'next-intl/middleware';
+import { locales } from './i18n';
+
+export default createMiddleware({
+  locales,
+  defaultLocale: 'fr',
+  localePrefix: 'always' // hoặc 'as-needed'
+})
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)']
+  matcher: [
+    // Enable a navbar to display the current locale
+    '/',
+    '/(fr|en|de)/:path*',
+    '/((?!api|_next|.*\\..*).*)' // Áp dụng cho tất cả các route
+  ]
 }
 
 export function middleware(req: NextRequest) {

@@ -1,32 +1,35 @@
 "use client";
 
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl';
 import siteMetadata from "@/data/siteMetadata";
 import Link from 'next/link'
-import i18n from '@/lib/i18n';
-import { languages } from '@/i18n/settings';
 import { usePathname, useRouter } from "next/navigation";
 import Image from 'next/image'
 
 
 const Header = () => {
-  const { t } = useTranslation('header');
+  const { t } = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
 
   const changeLanguage = (lng: string) => {
-      i18n.changeLanguage(lng);
-      const newPathname = pathname.replace(/^\/(en|fr|de)/, '');
-      
-      if (lng === 'fr') {
-          router.push(newPathname || '/');
-      } else {
-          router.push(`/${lng}${newPathname}`);
-      }
-
-      setLanguageMenuOpen(false);
+    const router = useRouter();
+    const { pathname, query } = router;
+  
+    // Tạo lại đường dẫn mới với locale mới
+    const newPathname = pathname.replace(/^\/(en|fr|de)/, '');
+  
+    // Kiểm tra ngôn ngữ và chuyển đến URL tương ứng
+    if (lng === 'fr') {
+      router.push(newPathname || '/'); // Nếu ngôn ngữ là 'fr', chỉ cần điều hướng về trang chủ hoặc path gốc
+    } else {
+      router.push(`/${lng}${newPathname}`); // Thêm locale vào URL
+    }
+  
+    // Đóng menu sau khi thay đổi ngôn ngữ
+    setLanguageMenuOpen(false);
   };
 
 

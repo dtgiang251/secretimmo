@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 import siteMetadata from "@/data/siteMetadata";
 import Image from 'next/image';
 import { Link as ScrollLink, Element } from 'react-scroll';
 
 export default function Home() {
-  const { t } = useTranslation('translation');
+  const { t } = useTranslations();
   const [advantages, setAdvantages] = useState([]);
 
   useEffect(() => {
