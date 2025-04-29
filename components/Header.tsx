@@ -1,33 +1,19 @@
 "use client";
 
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl';
 import siteMetadata from "@/data/siteMetadata";
 import Link from 'next/link'
-import i18n from '@/lib/i18n';
-import { languages } from '@/i18n/settings';
 import { usePathname, useRouter } from "next/navigation";
 import Image from 'next/image'
 
 
 const Header = () => {
-  const { t } = useTranslation('header');
+  const t  = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
 
-  const changeLanguage = (lng: string) => {
-      i18n.changeLanguage(lng);
-      const newPathname = pathname.replace(/^\/(en|fr|de)/, '');
-      
-      if (lng === 'fr') {
-          router.push(newPathname || '/');
-      } else {
-          router.push(`/${lng}${newPathname}`);
-      }
-
-      setLanguageMenuOpen(false);
-  };
 
 
   let headerClass =
@@ -65,20 +51,7 @@ const Header = () => {
               <strong className="text-sm leading-4.5">{t('header_2')}</strong>
             </div>
 
-            <div className="relative">
-              <button onClick={() => setLanguageMenuOpen(!languageMenuOpen)} className="languge-btn cursor-pointer w-8 h-8 rounded-4xl text-sm text-center text-white uppercase">
-                {i18n.language}
-              </button>
-              {languageMenuOpen && (
-                <div className="absolute left-0 mt-2 w-8">
-                  {languages.map((lng) => (
-                    <button key={lng} onClick={() => changeLanguage(lng)} className="languge-btn cursor-pointer w-8 h-8 rounded-4xl text-sm text-center text-white uppercase mb-1">
-                      {lng}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+          
 
           </div>
         </div>

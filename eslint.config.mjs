@@ -50,7 +50,7 @@ export default [
     rules: {
       'prettier/prettier': 'error',
       'react/react-in-jsx-scope': 'off',
-
+      "react/no-unknown-property": "error",
       'jsx-a11y/anchor-is-valid': [
         'error',
         {

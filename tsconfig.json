@@ -1,38 +1,58 @@
 {
   "compilerOptions": {
-    "incremental": true,
-    "target": "ES6",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "./",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "noEmit": true,
-    "composite": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": ".",
+    "incremental": true,
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/data/*": ["data/*"],
-      "@/layouts/*": ["layouts/*"],
-      "@/css/*": ["css/*"],
-      "contentlayer/generated": ["./.contentlayer/generated"],
-      "pliny/*": ["node_modules/pliny/*"],
-      "@/lib/*": ["lib/*"],
-      "@/i18n/*": ["i18n/*"],
-      "@/locales/*": ["locales/*"]
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/data/*": [
+        "data/*"
+      ],
+      "@/layouts/*": [
+        "layouts/*"
+      ],
+      "@/css/*": [
+        "css/*"
+      ],
+      "contentlayer/generated": [
+        "./.contentlayer/generated"
+      ],
+      "pliny/*": [
+        "node_modules/pliny/*"
+      ],
+      "@/lib/*": [
+        "lib/*"
+      ],
+      "@/i18n/*": [
+        "i18n/*"
+      ],
+      "@/locales/*": [
+        "locales/*"
+      ]
     },
     "plugins": [
       {
         "name": "next"
       }
     ],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
@@ -45,5 +65,7 @@
     ".contentlayer/generated/**/*.json",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,10 +1,10 @@
 import Link from './Link'
 import siteMetadata from '@/data/siteMetadata'
 import Image from 'next/image'
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl';
 
 export default function Footer() {
-  const { t } = useTranslation('footer');
+  const t  = useTranslations();
 
   return (
     <footer className="footer">
